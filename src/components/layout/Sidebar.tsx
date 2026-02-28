@@ -47,8 +47,8 @@ export function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
     <div className="flex flex-col w-64 bg-zinc-950 text-zinc-300 h-screen border-r border-zinc-800">
       <div className="p-6 flex items-center gap-4">
         <img
-          src="/src/img/ctrl-alt-bet.png"
-          alt="GOS Logo"
+          src="/public/ctrl-alt-bet.png"
+          alt="Game Orchestration System"
           className="h-12 w-auto object-contain"
         />
         <div className="flex flex-col leading-[1.1]">
