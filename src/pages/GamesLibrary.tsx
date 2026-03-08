@@ -125,6 +125,7 @@ export function GamesLibrary() {
                 <th className="px-6 py-4">Game Identifier</th>
                 <th className="px-6 py-4">Provider / Aggregator</th>
                 <th className="px-6 py-4">Category</th>
+                <th className="px-6 py-4">Feature Group</th>
                 <th className="px-6 py-4 text-center">RTP</th>
                 <th className="px-6 py-4">Features</th>
                 <th className="px-6 py-4 text-center">Status</th>
@@ -160,6 +161,11 @@ export function GamesLibrary() {
                     <td className="px-6 py-4">
                       <span className="inline-flex items-center px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 text-[10px] font-bold border border-zinc-700 uppercase">
                         {game.type}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 text-[10px] font-bold border border-zinc-700 lowercase">
+                        {provider?.feeGroups?.find(fg => fg.id === game.feeGroupId)?.name || 'basic'}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-center">
@@ -255,6 +261,34 @@ export function GamesLibrary() {
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* Feature Group Configuration */}
+            <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+              <div className="flex justify-between items-start mb-4">
+                <div>
+                  <h4 className="text-sm font-black text-white flex items-center gap-2">
+                    <Zap className="w-4 h-4 text-emerald-500" />
+                    Feature Group Assignment
+                  </h4>
+                  <p className="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Determine GGR and fee parameters</p>
+                </div>
+              </div>
+
+              <select
+                value={selectedGame.feeGroupId}
+                onChange={(e) => {
+                  setSelectedGame({ ...selectedGame, feeGroupId: e.target.value });
+                  // In a real app, this would trigger an API call or update a global store
+                }}
+                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white font-bold focus:border-emerald-500 outline-none transition-all appearance-none cursor-pointer lowercase"
+              >
+                {providers.find(p => p.id === selectedGame.providerId)?.feeGroups.map(fg => (
+                  <option key={fg.id} value={fg.id}>
+                    {fg.name} ({fg.ggr}% GGR / {fg.baseRate}% Base)
+                  </option>
+                ))}
+              </select>
             </div>
 
             {/* Specialities Grid */}
